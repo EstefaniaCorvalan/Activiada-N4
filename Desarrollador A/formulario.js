@@ -1,47 +1,79 @@
 const formRegistro = document.getElementById("form-registro");
 
-formRegistro.addEventListener("submit", function(e) {
-    const nombre = document.getElementById("nombre").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const edad = parseInt(document.getElementById("edad").value, 10);
-    const pais = document.getElementById("pais").value;
-    const terminos = document.getElementById("terminos").checked;
+formRegistro.addEventListener("submit", function (e) {
 
-    //Validacion Nombre
-    if (nombre.length < 5) {
-        e.preventDefault(); // Frenamos el envío
-        alert("El nombre debe tener al menos 5 caracteres.");
-        return;
+    let formularioValido = true;
+
+    const nombre = document.getElementById("nombre");
+    const email = document.getElementById("email");
+    const edad = document.getElementById("edad");
+    const pais = document.getElementById("pais");
+    const terminos = document.getElementById("terminos");
+
+    document.querySelectorAll(".error").forEach(error => {
+        error.textContent = "";
+    });
+
+    document.querySelectorAll("input, select").forEach(campo => {
+        campo.classList.remove("input-error");
+    });
+
+    // Nombre
+    if (nombre.value.trim().length < 5) {
+        document.getElementById("error-nombre").textContent =
+            "El nombre debe tener al menos 5 caracteres.";
+        nombre.classList.add("input-error");
+        formularioValido = false;
     }
 
-    //Validacion del Correo
+    // Email
     const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!regexEmail.test(email)) {
-        e.preventDefault();
-        alert("Por favor, ingrese un correo electrónico válido.");
-        return;
+
+    if (!regexEmail.test(email.value.trim())) {
+        document.getElementById("error-email").textContent =
+            "Ingrese un correo válido.";
+        email.classList.add("input-error");
+        formularioValido = false;
     }
 
-    //Validacion de la Edad
-    if (isNaN(edad) || edad < 18 || edad > 60) {
-        e.preventDefault();
-        alert("La edad debe estar entre 18 y 60 años.");
-        return;
+    // Edad
+    const valorEdad = parseInt(edad.value);
+
+    if (isNaN(valorEdad) || valorEdad < 18 || valorEdad > 60) {
+        document.getElementById("error-edad").textContent =
+            "La edad debe estar entre 18 y 60 años.";
+        edad.classList.add("input-error");
+        formularioValido = false;
     }
 
-    //Validacion del País
-    if (pais === "") {
-        e.preventDefault();
-        alert("Por favor, seleccione un país de la lista.");
-        return;
+    // País
+    if (pais.value === "") {
+        document.getElementById("error-pais").textContent =
+            "Seleccione un país.";
+        pais.classList.add("input-error");
+        formularioValido = false;
     }
 
-    //Validacion de Terminos Aceptados
-    if (!terminos) {
-        e.preventDefault();
-        alert("Debe aceptar los términos y condiciones para continuar.");
-        return;
+    // Términos
+    if (!terminos.checked) {
+        document.getElementById("error-terminos").textContent =
+            "Debe aceptar los términos y condiciones.";
+        formularioValido = false;
     }
+if (!formularioValido) {
+    e.preventDefault();
+} else {
 
-    alert("¡Validación exitosa! Enviando datos...");
+    e.preventDefault(); // para que no cambie de página
+
+    const toast = document.createElement("div");
+    toast.className = "toast-exito";
+    toast.textContent = "✅ Datos enviados correctamente";
+
+    document.body.appendChild(toast);
+
+    setTimeout(() => {
+        toast.remove();
+    }, 3000);
+}
 });

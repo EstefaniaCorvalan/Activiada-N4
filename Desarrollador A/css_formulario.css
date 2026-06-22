@@ -148,6 +148,47 @@ main {
     border-color: #94a3b8;
 }
 
+.error {
+    color: red;
+    font-size: 1.4rem;
+    min-height: 1.8rem;
+    display: block;
+}
+
+.input-error {
+    border: 2px solid red !important;
+}
+
+.mensaje-exito {
+    background-color: #dcfce7;
+    border: 2px solid #22c55e;
+    color: #166534;
+    padding: 1.5rem;
+    border-radius: 0.8rem;
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.oculto {
+    display: none;
+}
+
+.toast-exito {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #22c55e;
+    color: white;
+    padding: 1.5rem 2rem;
+    border-radius: 8px;
+    font-size: 1.6rem;
+    font-weight: bold;
+    box-shadow: 0 5px 15px rgba(0,0,0,.2);
+}
+
+
 /* Ajuste rápido para celulares si lo probás desde ahí */
 @media (max-width: 600px) {
     .section-formulario {
