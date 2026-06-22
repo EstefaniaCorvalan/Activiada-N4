@@ -60,12 +60,9 @@ formRegistro.addEventListener("submit", function (e) {
             "Debe aceptar los términos y condiciones.";
         formularioValido = false;
     }
-if (!formularioValido) {
+    if (!formularioValido) {
     e.preventDefault();
 } else {
-
-    e.preventDefault(); // para que no cambie de página
-
     const toast = document.createElement("div");
     toast.className = "toast-exito";
     toast.textContent = "✅ Datos enviados correctamente";
@@ -74,6 +71,6 @@ if (!formularioValido) {
 
     setTimeout(() => {
         toast.remove();
-    }, 3000);
+    }, 1500);
 }
 });
